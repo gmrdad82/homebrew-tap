@@ -1,0 +1,42 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # goreleaser owns Formula/*.rb — CI only has to prove whatever it
+      # pushed (or a human PR) is sound. Both steps no-op gracefully while
+      # the tap has no formulae yet.
+      - name: Ruby syntax check every formula
+        run: |
+          shopt -s nullglob
+          status=0
+          for f in Formula/*.rb Casks/*.rb; do
+            echo "ruby -c $f"
+            ruby -c "$f" || status=1
+          done
+          exit $status
+
+      - name: brew style
+        # Homebrew ships preinstalled on the ubuntu runner images.
+        run: |
+          shopt -s nullglob
+          files=(Formula/*.rb)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No formulae yet — style check skipped."
+            exit 0
+          fi
+          brew style "${files[@]}"
