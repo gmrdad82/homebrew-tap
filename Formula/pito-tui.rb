@@ -11,7 +11,7 @@ class PitoTui < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/gmrdad82/pito-tui/releases/download/v1.1.0/pito-tui_1.1.0_darwin_amd64.tar.gz"
-      sha256 "71928d9e02fcd2744c709a52f7e237503c30eb4b5c33e2745401eae4128f97c3"
+      sha256 "e76c33cbd433187a318ba384f25a6f0d9298106cd62b72f21bd4fb6551f02be1"
 
       define_method(:install) do
         bin.install "pito-tui"
@@ -19,7 +19,7 @@ class PitoTui < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/gmrdad82/pito-tui/releases/download/v1.1.0/pito-tui_1.1.0_darwin_arm64.tar.gz"
-      sha256 "fffe68bf13e8f3d280d984f52394fbb3b1fcc37173678630f2932b16d7939b9e"
+      sha256 "8bd1eae32bbb54937456c14f663fda83fa71e2a46f03bc5d8e4435f1afb7b9d3"
 
       define_method(:install) do
         bin.install "pito-tui"
@@ -30,14 +30,14 @@ class PitoTui < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/gmrdad82/pito-tui/releases/download/v1.1.0/pito-tui_1.1.0_linux_amd64.tar.gz"
-      sha256 "dec3deb32d8a36592e7c774e350bcbd8c34ffe07db0faad4fc801031801b6859"
+      sha256 "2b0059302d154f63a71648ba1cd460aeea36b63a9646ad86b8d998235a7543b9"
       define_method(:install) do
         bin.install "pito-tui"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/gmrdad82/pito-tui/releases/download/v1.1.0/pito-tui_1.1.0_linux_arm64.tar.gz"
-      sha256 "6974995b87d78b55c0f0fdb81c7089eaf56b53e523591aa8c61a40ecd5a531bf"
+      sha256 "3959894b3f92b467f93185e17dca97095ac8e004bc2da3b6c814007be067d1a0"
       define_method(:install) do
         bin.install "pito-tui"
       end
