@@ -5,21 +5,21 @@
 class PitoTui < Formula
   desc "Terminal client for PITO, the self-hosted YouTube channel manager"
   homepage "https://github.com/gmrdad82/pito-tui"
-  version "2.2.0"
+  version "2.3.0"
   license "AGPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.2.0/pito-tui_2.2.0_darwin_amd64.tar.gz"
-      sha256 "898d9fff4680a1373c9d0c9c8da77271a7f3f792324250175043152d576d3561"
+      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.3.0/pito-tui_2.3.0_darwin_amd64.tar.gz"
+      sha256 "c164e084c7a12d6e23a043b54ddc908faece860515acde383f7b528ddfc46a58"
 
       define_method(:install) do
         bin.install "pito-tui"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.2.0/pito-tui_2.2.0_darwin_arm64.tar.gz"
-      sha256 "5d26bce4b31929fcedf9e6819d8cf73a52874c9c44d51c9db56def6afccb6be2"
+      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.3.0/pito-tui_2.3.0_darwin_arm64.tar.gz"
+      sha256 "a357188637b519bcd5b45b6f819c98c2bc86bd4acc871ef4e6d26db6688c66bb"
 
       define_method(:install) do
         bin.install "pito-tui"
@@ -29,15 +29,15 @@ class PitoTui < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.2.0/pito-tui_2.2.0_linux_amd64.tar.gz"
-      sha256 "53912b9ee1d80ef684164c5eafedeed4495c78208362b0f3e684e9588fe43c40"
+      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.3.0/pito-tui_2.3.0_linux_amd64.tar.gz"
+      sha256 "101fd58d92dc0ac99e132010e6ceead8606af631d17e26f5e5fdbfe6bc28658e"
       define_method(:install) do
         bin.install "pito-tui"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.2.0/pito-tui_2.2.0_linux_arm64.tar.gz"
-      sha256 "a4055c87d77c3043128dca37d438e2b6f59f108408fa7156ae4c22601c2fbd62"
+      url "https://github.com/gmrdad82/pito-tui/releases/download/v2.3.0/pito-tui_2.3.0_linux_arm64.tar.gz"
+      sha256 "14b204fbc9974f67d67d8f7f2561ed24b8b3974c04ade4d2fe0b9ff045289575"
       define_method(:install) do
         bin.install "pito-tui"
       end
