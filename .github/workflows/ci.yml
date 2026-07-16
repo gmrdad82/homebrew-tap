@@ -31,8 +31,12 @@ jobs:
           exit $status
 
       - name: brew style
-        # Homebrew ships preinstalled on the ubuntu runner images.
+        # Linuxbrew ships on the ubuntu runner images but is NOT on PATH —
+        # every run since 2026-07-13 died with `brew: command not found`.
         run: |
+          if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
           shopt -s nullglob
           files=(Formula/*.rb)
           if [ ${#files[@]} -eq 0 ]; then
