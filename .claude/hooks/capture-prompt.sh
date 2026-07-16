@@ -12,7 +12,7 @@
 # as a reminder each turn.
 
 DIR="${CLAUDE_PROJECT_DIR:-.}"
-INBOX="$DIR/docs/claude/INBOX.md"
+INBOX="$DIR/.claude/INBOX.md"
 
 raw=$(cat)
 prompt=$(printf '%s' "$raw" | ruby -rjson -e 'print((JSON.parse(STDIN.read)["prompt"] rescue ""))' 2>/dev/null)
@@ -21,12 +21,19 @@ prompt=$(printf '%s' "$raw" | ruby -rjson -e 'print((JSON.parse(STDIN.read)["pro
 [ -z "$prompt" ] && prompt="$raw"
 [ -z "$prompt" ] && exit 0
 
+# Best-effort secret masking (owner 2026-07-15): values following secret-y
+# keywords are masked BEFORE the append, so keys/tokens pasted as
+# `key=...` / `token: ...` never reach the ledger verbatim. This is the
+# mechanical layer; CLAUDE.md instructs the model to redact anything
+# semantic the regex can't know. Mask, never drop — capture stays whole.
+prompt=$(printf '%s' "$prompt" | sed -E 's/((api[_-]?key|push[_-]?api[_-]?key|token|secret|password|webhook|bearer)[[:space:]"'"'"':=]+)[A-Za-z0-9_\/+.-]{8,}/\1[redacted]/Ig')
+
 ts=$(date '+%Y-%m-%d %H:%M' 2>/dev/null || echo '?')
-mkdir -p "$DIR/docs/claude" 2>/dev/null
+mkdir -p "$DIR/.claude" 2>/dev/null
 {
   printf '\n## ⛔ UNPROCESSED — %s\n\n' "$ts"
   printf '%s\n' "$prompt"
 } >> "$INBOX" 2>/dev/null
 
-printf 'LOG LAW: a new owner message was captured to docs/claude/INBOX.md. Before acting, DRAIN every UNPROCESSED block into the active working plan (every todo, report, decision, discussion item) and keep checkboxes in sync. The working md is the only source of truth — never internal memory.\n'
+printf 'LOG LAW: a new owner message was captured to .claude/INBOX.md. Before acting, DRAIN every UNPROCESSED block into the active working plan (every todo, report, decision, discussion item) and keep checkboxes in sync. The working md is the only source of truth — never internal memory.\n'
 exit 0

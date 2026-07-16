@@ -7,3 +7,4 @@
 
 # Local-only agent/working docs — never checked in.
 /docs/claude/
+.claude/hooks/__pycache__/
